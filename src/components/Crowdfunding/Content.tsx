@@ -4,17 +4,13 @@ import { EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import { convertToHTML } from 'draft-convert';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-// import {} from "dra"
 
 const Content = () => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
   const [convertedContent, setConvertedContent] = useState<string>();
-  const editor = useRef(null);
-  //   function focusEditor() {
-  //     editor.current.focus();
-  //   }
+  
   const handleEditorChange = (state: any) => {
     setEditorState(state);
     convertContentToHTML();
