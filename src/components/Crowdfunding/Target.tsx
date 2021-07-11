@@ -28,8 +28,6 @@ const Target = () => {
   const dispatch = useDispatch();
   const { targetAmount, endDate } = useSelector((state: any) => state.crowdfund);
 
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-
   const handleTargetAmount = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: "TARGETAMOUNT",
