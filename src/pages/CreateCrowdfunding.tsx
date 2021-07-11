@@ -15,6 +15,7 @@ import Description from "../components/Crowdfunding/Description";
 import UploadImage from "../components/Crowdfunding/UploadImage";
 import Review from "../components/Crowdfunding/Review";
 import Content from "../components/Crowdfunding/Content";
+import Return from "../components/Crowdfunding/Return";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
+      width: 750,
       marginLeft: "auto",
       marginRight: "auto",
     },
@@ -53,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ["Target", "Description", "Image", "Content","Review"];
+const steps = ["Target", "Description", "Image", "Content", "Return", "Review"];
 
 function getStepContent(step: any) {
   switch (step) {
@@ -63,9 +64,11 @@ function getStepContent(step: any) {
       return <Description />;
     case 2:
       return <UploadImage />;
-    case 3: 
-      return <Content />
+    case 3:
+      return <Content />;
     case 4:
+      return <Return />;
+    case 5:
       return <Review />;
     default:
       throw new Error("Unknown step");
@@ -75,6 +78,8 @@ function getStepContent(step: any) {
 const CreateCrowdfunding = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+
+  const [] = useState();
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -112,7 +117,7 @@ const CreateCrowdfunding = () => {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep)}
+                <div>{getStepContent(activeStep)}</div>
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>

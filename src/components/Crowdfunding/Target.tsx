@@ -1,13 +1,13 @@
 import "date-fns";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Grid,
   Typography,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  RadioGroup,
-  Radio,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
   makeStyles,
 } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
@@ -25,29 +25,57 @@ const useStyles = makeStyles({
 
 const Target = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { targetAmount, endDate } = useSelector((state: any) => state.crowdfund);
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
+  const handleTargetAmount = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: "TARGETAMOUNT",
+      targetAmount: e.target.value,
+    });
   };
+
+  const handleDateChange = (date: Date | null) => {
+    dispatch({
+      type: "ENDDATE", 
+      endDate: date,
+    })
+  };
+
   return (
     <React.Fragment>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Typography variant="h6" gutterBottom>
-          Let's set the required target amount
-        </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <TextField
-              required
-              id="targetAmount"
-              name="targetAmount"
-              label="Target Amount"
-              type="number"
-              fullWidth
-              autoComplete="target-amount"
-            />
+            <Typography variant="h6" gutterBottom>
+              Let's set the required target amount
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-amount">
+                Amount
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-amount"
+                value={targetAmount}
+                onChange={handleTargetAmount}
+                startAdornment={
+                  <InputAdornment
+                    position="start"
+                    style={{ padding: "0 1rem" }}
+                  >
+                    <img
+                      src="https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg "
+                      style={{ width: "20px" }}
+                    />
+                  </InputAdornment>
+                }
+                labelWidth={60}
+              />
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <KeyboardDatePicker
@@ -55,7 +83,7 @@ const Target = () => {
               id="date-picker-dialog"
               label="End Date"
               format="MM/dd/yyyy"
-              value={selectedDate}
+              value={endDate}
               onChange={handleDateChange}
               KeyboardButtonProps={{
                 "aria-label": "change date",
