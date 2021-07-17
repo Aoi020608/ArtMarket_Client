@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
   stepper: {
     padding: theme.spacing(3, 0, 5),
   },
+  // content: {
+  //   height: "26rem",
+  // },
   buttons: {
     display: "flex",
     justifyContent: "flex-end",
@@ -104,37 +107,39 @@ const CreateCrowdfunding = () => {
             ))}
           </Stepper>
           <React.Fragment>
-            {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
-                </Typography>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <div>{getStepContent(activeStep)}</div>
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
+            <div >
+              {activeStep === steps.length ? (
+                <React.Fragment>
+                  <Typography variant="h5" gutterBottom>
+                    Thank you for your order.
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    Your order number is #2001539. We have emailed your order
+                    confirmation, and will send you an update when your order
+                    has shipped.
+                  </Typography>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <div>{getStepContent(activeStep)}</div>
+                  <div className={classes.buttons}>
+                    {activeStep !== 0 && (
+                      <Button onClick={handleBack} className={classes.button}>
+                        Back
+                      </Button>
+                    )}
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                    >
+                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
                     </Button>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                  </Button>
-                </div>
-              </React.Fragment>
-            )}
+                  </div>
+                </React.Fragment>
+              )}
+            </div>
           </React.Fragment>
         </Paper>
       </div>

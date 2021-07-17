@@ -18,6 +18,9 @@ import {
 } from "@material-ui/pickers";
 
 const useStyles = makeStyles({
+  layout: {
+    height: "23rem",
+  },
   date: {
     width: "100%",
   },
@@ -45,55 +48,57 @@ const Target = () => {
   };
 
   return (
-    <React.Fragment>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Typography variant="h6" gutterBottom>
-              Let's set the required target amount
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-amount">
-                Amount
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                value={targetAmount}
-                onChange={handleTargetAmount}
-                startAdornment={
-                  <InputAdornment
-                    position="start"
-                    style={{ padding: "0 1rem" }}
-                  >
-                    <img
-                      src="https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg "
-                      style={{ width: "20px" }}
-                    />
-                  </InputAdornment>
-                }
-                labelWidth={60}
+    <div className={classes.layout}>
+      <React.Fragment>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Typography variant="h6" gutterBottom>
+                Let's set the required target amount
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-amount">
+                  Amount
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  value={targetAmount}
+                  onChange={handleTargetAmount}
+                  startAdornment={
+                    <InputAdornment
+                      position="start"
+                      style={{ padding: "0 1rem" }}
+                    >
+                      <img
+                        src="https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg "
+                        style={{ width: "20px" }}
+                      />
+                    </InputAdornment>
+                  }
+                  labelWidth={60}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <KeyboardDatePicker
+                margin="normal"
+                id="date-picker-dialog"
+                label="End Date"
+                format="MM/dd/yyyy"
+                value={endDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+                className={classes.date}
               />
-            </FormControl>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <KeyboardDatePicker
-              margin="normal"
-              id="date-picker-dialog"
-              label="End Date"
-              format="MM/dd/yyyy"
-              value={endDate}
-              onChange={handleDateChange}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-              className={classes.date}
-            />
-          </Grid>
-        </Grid>
-      </MuiPickersUtilsProvider>
-    </React.Fragment>
+        </MuiPickersUtilsProvider>
+      </React.Fragment>
+    </div>
   );
 };
 
