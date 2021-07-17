@@ -1,4 +1,5 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Grid,
   Typography,
@@ -20,6 +21,25 @@ const useStyles = makeStyles({
 
 const Return = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { returnAmount, returnContent } = useSelector(
+    (state: any) => state.crowdfund
+  );
+
+  const handleReturnAmount = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: "RETURNAMOUNT",
+      returnAmount: e.target.value,
+    });
+  };
+
+  const handleReturnContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    dispatch({
+      type: "RETURNCONTENT",
+      returnContent: e.target.value,
+    });
+  };
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -31,8 +51,8 @@ const Return = () => {
             <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
             <OutlinedInput
               id="outlined-adornment-amount"
-              //   value={values.amount}
-              //   onChange={handleChange("amount")}
+              value={returnAmount}
+              onChange={handleReturnAmount}
               startAdornment={
                 <InputAdornment position="start">
                   <img
@@ -51,6 +71,8 @@ const Return = () => {
             placeholder="Conclude your project in 3 lines"
             className={classes.textArea}
             rows={10}
+            value={returnContent}
+            onChange={handleReturnContent}
           />
         </Grid>
       </Grid>

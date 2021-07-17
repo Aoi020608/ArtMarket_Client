@@ -7,7 +7,7 @@ const initialState = {
   image: [],
   content: "",
   returnAmount: 0,
-  returnContent: 0,
+  returnContent: "",
 };
 
 const crowdfundReducer = (state = initialState, action: any) => {
@@ -42,17 +42,29 @@ const crowdfundReducer = (state = initialState, action: any) => {
         descriptionCategory: action.descriptionCategory,
       };
 
-    case "IMAGE": 
+    case "IMAGE":
       return {
-          ...state, 
-          image: action.image,
-      }
+        ...state,
+        image: action.image,
+      };
 
-    case "CONTENT": 
+    case "CONTENT":
       return {
-          ...state, 
-          content: action.content,
-      }
+        ...state,
+        content: action.content,
+      };
+
+    case "RETURNAMOUNT":
+      return {
+        ...state,
+        returnAmount: action.returnAmount,
+      };
+
+    case "RETURNCONTENT":
+      return {
+        ...state,
+        returnContent: action.returnContent,
+      };
 
     default:
       return {

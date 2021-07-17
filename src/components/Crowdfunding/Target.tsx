@@ -26,7 +26,9 @@ const useStyles = makeStyles({
 const Target = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { targetAmount, endDate } = useSelector((state: any) => state.crowdfund);
+  const { targetAmount, endDate } = useSelector(
+    (state: any) => state.crowdfund
+  );
 
   const handleTargetAmount = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({
@@ -37,9 +39,9 @@ const Target = () => {
 
   const handleDateChange = (date: Date | null) => {
     dispatch({
-      type: "ENDDATE", 
+      type: "ENDDATE",
       endDate: date,
-    })
+    });
   };
 
   return (
