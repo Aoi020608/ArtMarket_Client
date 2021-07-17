@@ -48,6 +48,12 @@ const crowdfundReducer = (state = initialState, action: any) => {
           image: action.image,
       }
 
+    case "CONTENT": 
+      return {
+          ...state, 
+          content: action.content,
+      }
+
     default:
       return {
         ...state,

@@ -1,26 +1,44 @@
 import React, { useState, useRef } from "react";
 import { Typography, Grid } from "@material-ui/core";
-import { EditorState } from "draft-js";
+import { ContentState, EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-import { convertToHTML } from 'draft-convert';
+import { convertToHTML, convertFromHTML } from "draft-convert";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { useDispatch, useSelector } from "react-redux";
 
 const Content = () => {
+  const dispatch = useDispatch();
+  const { content } = useSelector((state: any) => state.crowdfund);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
   const [convertedContent, setConvertedContent] = useState<string>();
-  
+
   const handleEditorChange = (state: any) => {
     setEditorState(state);
     convertContentToHTML();
-  }
+  };
 
   const convertContentToHTML = () => {
     let currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
-    setConvertedContent(currentContentAsHTML);
+    // setConvertedContent(currentContentAsHTML);
+    let currentContent = convertFromHTML(currentContentAsHTML);
+    console.log(currentContent);
+    dispatch({
+      type: "CONTENT",
+      content: currentContentAsHTML,
+    });
+  };
+
+  const convertContentFromHTML = () => {
+    let editorContent = ContentState.createFromBlockArray(content);
+    return editorContent;
   }
 
+  const contentBlock = convertFromHTML(content);
+  // const editorContent: any = ContentState.createFromText()
+
+  console.log();
 
   return (
     <React.Fragment>
@@ -35,6 +53,7 @@ const Content = () => {
             cursor: "text",
             borderRadius: "0.2rem",
             padding: "0.4rem",
+            width: "100%",
           }}
           //   onClick={focusEditor}
         >
@@ -46,6 +65,9 @@ const Content = () => {
             wrapperClassName="wrapper-class"
             editorClassName="editor-class"
             toolbarClassName="toolbar-class"
+            // defaultEditorState={() => {
+            //   convertFromHTML(content)
+            // }}
           />
         </div>
       </Grid>
